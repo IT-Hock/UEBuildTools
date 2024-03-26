@@ -87,10 +87,18 @@ The application currently only contains a "main.py" that does everything.
 
 ### Installation
 
-The repository contains a virtual environment that can be activated with the following command:
+The repository contains a requirements.txt file that can be used to install the required packages.
 
+### Using a virtual environment:
 ```shell
+python -m venv venv
 source venv/bin/activate
+pip install -r requirements.txt
+```
+
+### Without a virtual environment:
+```shell
+pip install -r requirements.txt
 ```
 
 After that you can run the script with the following command:
