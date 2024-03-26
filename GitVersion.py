@@ -138,7 +138,7 @@ class GitVersion:
             if match:
                 self.version = [int(match.group(1)), int(match.group(2)), int(match.group(3)), int(match.group(4))]
             else:
-                logging.error(f"Could not parse version from tag: {tag}")
+                logging.error(f"get_version: Could not parse version from tag: {tag} - using default version of 0.0.1.0")
                 self.version = [0, 0, 1, 0]
         logging.debug(f"self.version: {self.version}")
         return self.version

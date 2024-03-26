@@ -77,8 +77,8 @@ def modify_crash_report_client(version_information, crash_report_client_path="Cr
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--dir', type=str, help='Git repository directory', required=True)
+    parser.add_argument('--game', type=str, help='Game name', required=True)
     parser.add_argument('--log', type=str, help='Log level', default="INFO")
-    parser.add_argument('--game', type=str, help='Game name', default='Game')
     parser.add_argument('--output', type=str, help='Output file', default="version.h")
     parser.add_argument('--template', type=str, help='Template file', default="version.tpl")
     parser.add_argument('--default-game', type=str, help='DefaultGame.ini file', default=None)
@@ -96,6 +96,10 @@ if __name__ == "__main__":
     if args.default_game is None and not args.no_update_default_game:
         args.default_game = args.dir + "/Config/DefaultGame.ini"
         logging.info(f"DefaultGame.ini file not specified, using {args.default_game}")
+
+    if args.crash_report_client is None and not args.no_update_crash_report_client:
+        args.crash_report_client = args.dir + "/Config/CrashReportClient.ini"
+        logging.info(f"CrashReportClient.ini file not specified, using {args.crash_report_client}")
 
     logging.info(f"Git repository directory: {args.dir}")
     logging.info(f"Reading version information from git repository")
