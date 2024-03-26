@@ -57,9 +57,21 @@
 </div>
 
 Currently the following things are available:
+
 - Generating a C++ Header with Version Information from Git using a template file
 - Modifying the Version Information in the Project Settings of Unreal Engine
 - Modifying the Version Information for the Crash Report Client
+
+**TeamCity.py**
+Script to interact with TeamCity supports:
+
+- Downloading an artifact
+- Listing Tags
+- Listing BuildTypes
+- Listing SubProjects
+- Listing Projects
+- Listing Artifacts
+- Getting build ids
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -79,9 +91,9 @@ The application currently only contains a "main.py" that does everything.
 ### Prerequisites
 
 * Python 3.9
-  * [GitPython](https://gitpython.readthedocs.io/en/stable/)
-  * [argparse](https://docs.python.org/3/library/argparse.html)
-  * [parse](https://pypi.org/project/parse/)
+    * [GitPython](https://gitpython.readthedocs.io/en/stable/)
+    * [argparse](https://docs.python.org/3/library/argparse.html)
+    * [parse](https://pypi.org/project/parse/)
 * Git
 
 ### Installation
@@ -89,6 +101,7 @@ The application currently only contains a "main.py" that does everything.
 The repository contains a requirements.txt file that can be used to install the required packages.
 
 ### Using a virtual environment:
+
 ```shell
 python -m venv venv
 source venv/bin/activate
@@ -96,6 +109,7 @@ pip install -r requirements.txt
 ```
 
 ### Without a virtual environment:
+
 ```shell
 pip install -r requirements.txt
 ```
@@ -106,11 +120,24 @@ After that you can run the script with the following command:
 python main.py --dir /path/to/git/repo
 ```
 
+TeamCity.py can be used in the same way:
+
+```shell
+python TeamCity.py --host https://teamcity.example.com --token YOUR_TOKEN --project ProjectName --buildtype BuildType --tag TagName --artifact ArtifactName
+```
+
+In addition to supplying the token and host, you can set the following environment variables:
+
+```shell
+export TEAMCITY_HOST="https://teamcity.example.com"
+export TEAMCITY_TOKEN="ey"
+```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Usage
 
-The following arguments are available
+The following arguments are available (main.py):
 
 ### --dir (required)
 
@@ -141,6 +168,7 @@ The output file for the generated header file
 The template file for the generated header file
 
 Example:
+
 ```c
 #pragma once
 
@@ -175,21 +203,50 @@ The CrashReportClient.ini file that should be updated
 
 Do not update the CrashReportClient.ini file
 
+The following arguments are available (TeamCity.py):
+
+### --host (required)
+
+The host of the TeamCity server
+
+### --token (required)
+
+The token for the TeamCity server
+
+### --project
+
+The project to use
+
+### --buildtype
+
+The build type to use
+
+### --tag
+
+The tag to use
+
+### --artifact
+
+The artifact to use
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Roadmap
 
 Since this project was developed for internal use, there are currently no plans to expand the functionality.
 
-See the [open issues](https://github.com/IT-Hock/UEBuildTools/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/IT-Hock/UEBuildTools/issues) for a full list of proposed features (and known
+issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any
+contributions you make are **greatly appreciated**.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also
+simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project
@@ -208,12 +265,21 @@ See `LICENSE.txt` for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 [contributors-shield]: https://img.shields.io/github/contributors/IT-Hock/UEBuildTools.svg?style=for-the-badge
+
 [contributors-url]: https://github.com/IT-Hock/UEBuildTools/graphs/contributors
+
 [forks-shield]: https://img.shields.io/github/forks/IT-Hock/UEBuildTools.svg?style=for-the-badge
+
 [forks-url]: https://github.com/IT-Hock/UEBuildTools/network/members
+
 [stars-shield]: https://img.shields.io/github/stars/IT-Hock/UEBuildTools.svg?style=for-the-badge
+
 [stars-url]: https://github.com/IT-Hock/UEBuildTools/stargazers
+
 [issues-shield]: https://img.shields.io/github/issues/IT-Hock/UEBuildTools.svg?style=for-the-badge
+
 [issues-url]: https://github.com/IT-Hock/UEBuildTools/issues
+
 [license-shield]: https://img.shields.io/github/license/IT-Hock/UEBuildTools.svg?style=for-the-badge
+
 [license-url]: https://github.com/IT-Hock/UEBuildTools/blob/master/LICENSE.txt
