@@ -17,6 +17,7 @@
 """
 import argparse
 import logging
+import os
 
 from Template import Template
 from UnrealConfig import UnrealConfig
@@ -102,12 +103,23 @@ if __name__ == "__main__":
     logging.debug(f"SHA: {git_version.sha}")
     logging.debug(f"Short SHA: {git_version.short_sha}")
 
+    # check if a file is present in file system
+    if not os.path.isfile(args.template):
+        logging.error(f"Template file {args.template} not found")
+        exit(1)
+
     modify_template_file(git_version, args.template, args.output)
 
     if not args.no_update_crash_report_client:
-        modify_crash_report_client(git_version, args.crash_report_client)
+        if not os.path.isfile(args.crash_report_client):
+            logging.error(f"CrashReportClient file {args.crash_report_client} not found")
+        else:
+            modify_crash_report_client(git_version, args.crash_report_client)
 
     if not args.no_update_default_game:
-        modify_default_game(git_version, args.game, args.default_game)
+        if not os.path.isfile(args.default_game):
+            logging.error(f"DefaultGame file {args.default_game} not found")
+        else:
+            modify_default_game(git_version, args.game, args.default_game)
 
     logging.info(f"Done")
