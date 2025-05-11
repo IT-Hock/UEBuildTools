@@ -45,11 +45,12 @@ def modify_default_game(version_information, project_name, default_game_path="De
     logging.info(f"Updating Unreal Engine configuration files")
     default_game_config = UnrealConfig(default_game_path)
 
-    unreal_localization = UnrealLocalization(
-        default_game_config.get("/Script/EngineSettings.GeneralProjectSettings", "ProjectDisplayedTitle"))
-    unreal_localization.value = f"{project_name} {version_information.get_version_string()}"
-    default_game_config.set("/Script/EngineSettings.GeneralProjectSettings", "ProjectDisplayedTitle",
-                            unreal_localization.__str__())
+    default_project_displayed_title = default_game_config.get("/Script/EngineSettings.GeneralProjectSettings", "ProjectDisplayedTitle")
+    if default_project_displayed_title is not None:
+        unreal_localization = UnrealLocalization(default_project_displayed_title)
+        unreal_localization.value = f"{project_name} {version_information.get_version_string()}"
+        default_game_config.set("/Script/EngineSettings.GeneralProjectSettings", "ProjectDisplayedTitle",
+                                unreal_localization.__str__())
     default_game_config.set("/Script/EngineSettings.GeneralProjectSettings", "ProjectVersion",
                             f"{version_information.version[0]}.{version_information.version[1]}.{version_information.version[2]}")
     default_game_config.save()
