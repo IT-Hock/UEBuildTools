@@ -75,13 +75,12 @@ class UnrealLocalization:
             If the text is not a valid Unreal Engine localization string.
         """
         match = re.match(r'^NSLOCTEXT\("(\[.*])", "(.*)", "(.*)"\)$', text)
-        if match:
-            self.namespace = match.group(1)
-            self.key = match.group(2)
-            self.value = match.group(3)
-        else:
+        if not match:
             logging.error(f"Line: {text}")
-            raise Exception("Invalid Localization")
+            return
+        self.namespace = match.group(1)
+        self.key = match.group(2)
+        self.value = match.group(3)
 
     def __str__(self):
         """
@@ -92,4 +91,8 @@ class UnrealLocalization:
         str
             The string representation of the localization string.
         """
+        if self.namespace is None or self.key is None or self.value is None:
+            logging.error("Localization is not set")
+            return f'"{self.value}"'
+        
         return f'NSLOCTEXT("{self.namespace}", "{self.key}", "{self.value}")'
