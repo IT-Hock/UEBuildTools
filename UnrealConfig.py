@@ -112,6 +112,13 @@ class UnrealConfig:
             for section in self.config:
                 if key in self.config[section]:
                     return self.config[section][key]
+                    
+        if section not in self.config:
+            logging.error(f"Section: {section} not found in config")
+            return None
+        if key not in self.config[section]:
+            logging.error(f"Key: {key} not found in section: {section}")
+            return None
 
         return self.config[section][key]
 
